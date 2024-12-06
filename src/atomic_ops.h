@@ -209,6 +209,10 @@
     /* GCC v4.8+ */
 #   define AO_ADDRESS_SANITIZER
 # endif
+# ifdef __SANITIZE_THREAD__
+    /* GCC v7.1+ */
+#   define AO_THREAD_SANITIZER
+# endif
 #endif /* !__has_feature */
 
 #ifndef AO_ATTR_NO_SANITIZE_MEMORY
