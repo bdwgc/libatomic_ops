@@ -687,5 +687,5 @@ deploy:
   file_glob: true
   on:
     condition: $MAKEFILE_TARGET = distcheck
-    repo: ivmai/libatomic_ops
+    repo: bdwgc/libatomic_ops
     tags: true
