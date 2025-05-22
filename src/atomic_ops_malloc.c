@@ -204,7 +204,7 @@ static void
 AO_free_large(void *p)
 {
   AO_t sz = ((AO_t *)p)[-1];
-  if (munmap((AO_t *)p - ALIGNMENT / sizeof(AO_t), (size_t)sz) != 0)
+  if (munmap((void *)((AO_t *)p - ALIGNMENT / sizeof(AO_t)), (size_t)sz) != 0)
     abort();  /* Programmer error.  Not really async-signal-safe, but ... */
 }
 
