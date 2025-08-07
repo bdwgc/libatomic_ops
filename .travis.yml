@@ -674,9 +674,9 @@ script:
 
 after_success:
 - if [[ "$REPORT_COVERAGE" == true ]]; then
-    lcov --capture --directory src --directory tests --output-file coverage.info;
-    lcov --remove coverage.info '/usr/*' 'tests/*' --output-file coverage.info;
-    lcov --list coverage.info;
+    lcov --capture --directory src --directory tests --output-file coverage.info &&
+    lcov --remove coverage.info '/usr/*' 'tests/*' --output-file coverage.info &&
+    lcov --list coverage.info &&
     coveralls-lcov --repo-token=${COVERALLS_REPO_TOKEN} coverage.info;
   fi
 
