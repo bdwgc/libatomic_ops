@@ -158,8 +158,10 @@ jobs:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=MinSizeRel -Denable_assertions=ON -Denable_atomic_intrinsics=OFF"
   - arch: s390x
     compiler: clang
+    dist: noble
   - arch: s390x
     compiler: gcc
+    dist: noble
   - addons:
       apt:
         packages:
