@@ -1,4 +1,16 @@
 
+== [7.8.4] (not released yet) ==
+
+* Document Win32-specific AO_NO_ASM_XADD macro in README
+* Eliminate 'atomic_thread_fence is unsupported with tsan' gcc-11 warning
+* Eliminate 'munmap argument 1 from incompatible pointer type' gcc warning
+* Eliminate 'uninitialized memory use' gcc-13 warning in test_atomic
+* Fix all broken URLs in comments
+* Fix atomic_ops_sysdeps.S compilation for SunPro compiler in CMake script
+* Update URLs after repository transfer to bdwgc organization
+* Update CMake minimum required version to 3.10
+
+
 == [7.8.2] 2023-12-15 ==
 
 * Eliminate 'atomic_thread_fence is unsupported with tsan' gcc-11 warning
