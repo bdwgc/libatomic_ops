@@ -108,6 +108,7 @@ jobs:
     - TESTS_CUSTOM_RUN=true
   - arch: arm64
     compiler: gcc
+    dist: jammy
     env:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release"
   - arch: ppc64le
@@ -147,10 +148,12 @@ jobs:
     - TESTS_CUSTOM_RUN=true
   - arch: ppc64le
     compiler: clang
+    dist: jammy
     env:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=ON -Denable_assertions=ON -Denable_docs=OFF"
   - arch: ppc64le
     compiler: gcc
+    dist: jammy
     env:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=MinSizeRel -Denable_assertions=ON -Denable_atomic_intrinsics=OFF"
   - arch: s390x
@@ -185,6 +188,7 @@ jobs:
     env:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -Denable_atomic_intrinsics=OFF"
   - compiler: gcc
+    dist: jammy
     env:
     - CMAKE_OPTIONS="-DBUILD_SHARED_LIBS=ON -Dinstall_headers=OFF"
   - compiler: clang
