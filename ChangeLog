@@ -1,20 +1,39 @@
 
 == [7.9.0] (development) ==
 
+* Add comment that overflow of a counter in AO_stack_pop is impossible
+* Add missed copyright header to ibmc/powerpc.h
+* Adjust/reformat copyright header in armcc/arm_v6.h
 * Change AO_REAL_NEXT_PTR() to accept argument as reference only
 * Change static initializer of initial_heap_ptr and spin_dummy to zero
+* Consistently use '__sparc' predefined macro w/o trailing underscores
 * Define AO_N_BITS to a bigger value if pointer type is larger than size_t
 * Define AO_uintptr_t and use it in AO malloc and stack (refactoring)
 * Define functions and variables of tests as static (refactoring)
+* Do not define AO_GCC_FORCE_HAVE_CAS for modern clang and gcc for RISC-V
+* Eliminate 'can be declared as pointer to const' cppcheck FP in test_atomic
+* Eliminate 'condition is always true' cppcheck style warnings in test_atomic
+* Fix 'libtool library used but LIBTOOL is undefined' autoreconf error
+* Give verbose error message if multiple include test_and_set_t_is_*_t.h
+* Guard against direct include of internal headers from outside (refactoring)
 * Hide AO_initial_heap internal symbol
+* Implement AO_fetch_compare_and_swap_full for sunc/sparc
 * Minor text improvement in README_details.txt and README_malloc.txt
+* New macro (AO_NO_ASM_XCHG) to use Win32 InterlockedExchange
+* Prefix/suffix no_sanitize attribute with double underscore (refactoring)
 * Provide AO_INITIAL_HEAP_CHUNKS macro to control AO_initial_heap size
+* Provide char/short-width CAS for RISC-V w/o '-latomic' if gcc v14+
+* Refine comment about AO_double_t size in standard_ao_double_t.h
+* Refine documentation when stack implementation is fully lock-free
 * Remove AO_stack_push/pop based on compare_and_swap_double
-* Support E2K protected mode
 * Support double-wide CAS on 64-bit RISC-V with Zacas extension
 * Support double-wide primitives on E2K (in 32- and 64-bit modes)
-* Support targets with double-wide pointers (CHERI)
+* Support RISC-V ILP32 ABI (rv64ilp32)
+* Support targets with double-wide pointers (CHERI, E2K protected mode)
+* Update autotools for release tarball (ac-2.72, am-1.17, lt-2.5.4)
 * Use AO_internal_ptr_t to operate link pointer inside AO stack and malloc
+* Use atomic_ops_sysdeps.S by configure on any SPARC with non-GCC compiler
+* Workaround 'memory leak in add_elements' cppcheck FP in test_stack
 
 
 == [7.8.4] 2025-09-05 ==
