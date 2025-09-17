@@ -9,7 +9,7 @@ LIBRARY IN THIS PACKAGE.
 [![Coverage Status](https://coveralls.io/repos/github/bdwgc/libatomic_ops/badge.svg?branch=master)](https://coveralls.io/github/bdwgc/libatomic_ops?branch=master)
 [![Coverity Scan build status](https://scan.coverity.com/projects/32089/badge.svg)](https://scan.coverity.com/projects/bdwgc-libatomic_ops)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbdwgc%2Flibatomic_ops.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbdwgc%2Flibatomic_ops/refs/branch/master?ref=badge_shield)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6333/badge)](https://bestpractices.coreinfrastructure.org/projects/6333)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/6333/badge)](https://www.bestpractices.dev/projects/6333)
 [![Hits-of-Code](https://hitsofcode.com/github/bdwgc/libatomic_ops?branch=master)](https://hitsofcode.com/github/bdwgc/libatomic_ops/view)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/bdwgc/libatomic_ops)](https://shields.io/badges/git-hub-code-size-in-bytes)
 [![Github All Releases](https://img.shields.io/github/downloads/bdwgc/libatomic_ops/total.svg)](https://shields.io/badges/git-hub-downloads-all-assets-all-releases)
