@@ -131,14 +131,6 @@ if test "$enable_atomic_intrinsics" = no; then
             [Define to avoid GCC atomic intrinsics even if available.])
 fi
 
-AC_ARG_ENABLE(gcov, AS_HELP_STRING([--enable-gcov],
-                                   [Turn on code coverage analysis]))
-if test "$enable_gcov" = "yes"; then
-  CFLAGS="$CFLAGS --coverage"
-  # Turn off code optimization to get accurate line numbers.
-  CFLAGS=`echo "$CFLAGS" | sed -e 's/-O\(1\|2\|3\|4\|s\|fast\)\?//g'`
-fi
-
 AC_ARG_ENABLE(gpl,
         [AS_HELP_STRING([--disable-gpl],
                         [Do not build atomic_ops_gpl library])])
