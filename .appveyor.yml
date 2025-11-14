@@ -21,6 +21,7 @@ environment:
     CMAKE_OPTIONS: -A Win32 -Dbuild_tests=ON -Denable_assertions=ON
   - TARGET: cmake
     CMAKE_CONFIG: Release
+    CFLAGS_EXTRA: /wd4013
     CMAKE_OPTIONS: -A ARM64 -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_SHARED_LIBS=ON
   - TARGET: nmake
     ARCH: x86
@@ -38,6 +39,7 @@ environment:
     CFLAGS_EXTRA: -DNDEBUG
   - TARGET: nmake
     ARCH: x64_arm64
+    CFLAGS_EXTRA: /wd4013
     TEST_TARGET: check-deps
 
 clone_depth: 50
