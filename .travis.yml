@@ -14,11 +14,11 @@ jobs:
         - lcov
     compiler: gcc
     env:
-    - CONF_OPTIONS="--enable-gcov --enable-shared"
+    - CONF_OPTIONS="--enable-shared"
     - CC_FOR_CHECK=gcc
     - MAKEFILE_TARGET=all
     - REPORT_COVERAGE=true
-    - CFLAGS_EXTRA="-fprofile-update=atomic -march=native -D DEBUG_RUN_ONE_TEST -D VERBOSE_STACK"
+    - CFLAGS_EXTRA="--coverage -O0 -fprofile-update=atomic -march=native -D DEBUG_RUN_ONE_TEST -D VERBOSE_STACK"
   - addons:
       apt:
         packages:
