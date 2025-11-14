@@ -568,6 +568,11 @@ before_install:
     wget -O - $AUTOMAKE_XZ_URL | tar xf - --xz --directory ~;
     (cd ~/automake-$AUTOMAKE_VER && ./configure --prefix=$GNUTOOLS_ROOT && make -j && make install);
   fi
+- if [[ "$REPORT_COVERAGE" == true ]]; then
+    mkdir -p ../coveralls;
+    wget -O - https://coveralls.io/coveralls-linux.tar.gz | tar xf - --gz --directory ../coveralls;
+    export PATH=`pwd`/../coveralls:$PATH;
+  fi
 - if [[ "$MAKEFILE_TARGET" == "dist"* ]]; then
     autoconf --version;
     automake --version;
@@ -583,7 +588,6 @@ install:
 - if [[ "$CMAKE_OPTIONS" == "" ]]; then
     ./autogen.sh;
   fi
-- if [[ "$REPORT_COVERAGE" == true ]]; then gem install coveralls-lcov; fi
 
 script:
 - if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
@@ -628,7 +632,7 @@ after_success:
     lcov --capture --directory src --directory tests --output-file coverage.info &&
     lcov --remove coverage.info 'tests/*' --output-file coverage.info &&
     lcov --list coverage.info &&
-    coveralls-lcov --repo-token=${COVERALLS_REPO_TOKEN} coverage.info;
+    coveralls report coverage.info -r ${COVERALLS_REPO_TOKEN};
   fi
 
 deploy:
