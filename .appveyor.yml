@@ -20,8 +20,6 @@ environment:
   - TARGET: cmake
     CMAKE_OPTIONS: -A Win32 -Dbuild_tests=ON -Denable_assertions=ON
   - TARGET: cmake
-    CMAKE_OPTIONS: -A ARM -Denable_assertions=ON -Denable_docs=OFF
-  - TARGET: cmake
     CMAKE_CONFIG: Release
     CMAKE_OPTIONS: -A ARM64 -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_SHARED_LIBS=ON
   - TARGET: nmake
@@ -38,9 +36,6 @@ environment:
   - TARGET: nmake
     ARCH: x86_x64
     CFLAGS_EXTRA: -DNDEBUG
-  - TARGET: nmake
-    ARCH: x86_arm
-    TEST_TARGET: check-deps
   - TARGET: nmake
     ARCH: x64_arm64
     TEST_TARGET: check-deps
