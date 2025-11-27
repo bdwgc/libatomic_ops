@@ -10,7 +10,7 @@ environment:
   TEST_TARGET: check
   matrix:
   - TARGET: cmake
-    CMAKE_OPTIONS: -DBUILD_SHARED_LIBS=ON -Werror=deprecated
+    CMAKE_OPTIONS: -DAO_BUILD_SHARED_LIBS=ON -Werror=deprecated
   - TARGET: cmake
     CFLAGS_EXTRA: -DAO_CMPXCHG16B_AVAILABLE
     CMAKE_OPTIONS: -Denable_assertions=ON -Dinstall_headers=OFF
@@ -21,7 +21,7 @@ environment:
     CMAKE_OPTIONS: -A Win32 -Denable_assertions=ON -Denable_docs=OFF
   - TARGET: cmake
     CMAKE_CONFIG: Release
-    CMAKE_OPTIONS: -A ARM64 -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_SHARED_LIBS=ON
+    CMAKE_OPTIONS: -A ARM64 -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DAO_BUILD_SHARED_LIBS=ON
   - TARGET: nmake
     ARCH: x86
     CFLAGS_EXTRA: /J
