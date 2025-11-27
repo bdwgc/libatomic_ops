@@ -14,7 +14,7 @@ Alternatively, the libraries could be built with CMake, even for Windows,
 like this:
 > mkdir out
 > cd out
-> cmake -Dbuild_tests=ON ..
+> cmake ..
 > cmake --build . --config Release
 > ctest --build-config Release
 

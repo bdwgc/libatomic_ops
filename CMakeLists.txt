@@ -50,7 +50,7 @@ endif()
 
 # Customize the build by passing "-D<option_name>=ON|OFF" in the command line.
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
-option(build_tests "Build tests" OFF)
+option(build_tests "Build tests" ON)
 option(enable_assertions "Enable assertion checking" OFF)
 option(enable_werror "Treat warnings as errors" OFF)
 option(enable_atomic_intrinsics "Use GCC atomic intrinsics" ON)
