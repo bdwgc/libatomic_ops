@@ -87,7 +87,7 @@ jobs:
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -Denable_werror=ON
-        -DBUILD_SHARED_LIBS=${{ matrix.shared_libs }}
+        -DAO_BUILD_SHARED_LIBS=${{ matrix.shared_libs }}
         -Denable_assertions=${{ matrix.assertions }}
         -Denable_atomic_intrinsics=${{ matrix.atomic_intrinsics }}
         ${{ matrix.disable_docs_opt }}
