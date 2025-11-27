@@ -21,7 +21,7 @@ environment:
     CMAKE_OPTIONS: -A Win32 -Denable_assertions=ON -Denable_docs=OFF
   - TARGET: cmake
     CMAKE_CONFIG: Release
-    CMAKE_OPTIONS: -A ARM64 -Dbuild_tests=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_SHARED_LIBS=ON
+    CMAKE_OPTIONS: -A ARM64 -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_SHARED_LIBS=ON
   - TARGET: nmake
     ARCH: x86
     CFLAGS_EXTRA: /J
