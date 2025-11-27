@@ -86,7 +86,6 @@ jobs:
         ${{ matrix.cmake_generator_opt }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -Dbuild_tests=ON
         -Denable_werror=ON
         -DBUILD_SHARED_LIBS=${{ matrix.shared_libs }}
         -Denable_assertions=${{ matrix.assertions }}
