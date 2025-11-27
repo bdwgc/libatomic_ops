@@ -4,12 +4,14 @@
 * Add comment that overflow of a counter in AO_stack_pop is impossible
 * Add missed copyright header to ibmc/powerpc.h
 * Adjust/reformat copyright header in armcc/arm_v6.h
+* Build tests by default in CMake script
 * Change AO_REAL_NEXT_PTR() to accept argument as reference only
 * Change static initializer of initial_heap_ptr and spin_dummy to zero
 * Consistently use '__sparc' predefined macro w/o trailing underscores
 * Define AO_N_BITS to a bigger value if pointer type is larger than size_t
 * Define AO_uintptr_t and use it in AO malloc and stack (refactoring)
 * Define functions and variables of tests as static (refactoring)
+* Discontinue support of configure '--enable-gcov' option
 * Do not define AO_GCC_FORCE_HAVE_CAS for modern clang and gcc for RISC-V
 * Eliminate 'can be declared as pointer to const' cppcheck FP in test_atomic
 * Eliminate 'condition is always true' cppcheck style warnings in test_atomic
@@ -26,11 +28,13 @@
 * Refine comment about AO_double_t size in standard_ao_double_t.h
 * Refine documentation when stack implementation is fully lock-free
 * Remove AO_stack_push/pop based on compare_and_swap_double
+* Rename CMake 'BUILD_SHARED_LIBS' option to 'AO_BUILD_SHARED_LIBS'
+* Replace CMake 'build_tests' option to standard 'BUILD_TESTING' one
+* Support RISC-V ILP32 ABI (rv64ilp32)
 * Support double-wide CAS on 64-bit RISC-V with Zacas extension
 * Support double-wide primitives on E2K (in 32- and 64-bit modes)
-* Support RISC-V ILP32 ABI (rv64ilp32)
 * Support targets with double-wide pointers (CHERI, E2K protected mode)
-* Update autotools for release tarball (ac-2.72, am-1.17, lt-2.5.4)
+* Update autotools for release tar (ac-2.72, am-1.18.1, lt-2.5.4, m4-1.4.20)
 * Use AO_internal_ptr_t to operate link pointer inside AO stack and malloc
 * Use atomic_ops_sysdeps.S by configure on any SPARC with non-GCC compiler
 * Workaround 'memory leak in add_elements' cppcheck FP in test_stack
