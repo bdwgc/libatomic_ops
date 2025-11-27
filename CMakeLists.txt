@@ -50,7 +50,7 @@ endif()
 
 # Customize the build by passing "-D<option_name>=ON|OFF" in the command line.
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
-option(build_tests "Build tests" ON)
+# option(BUILD_TESTING "Build tests" ON) - the standard one
 option(enable_assertions "Enable assertion checking" OFF)
 option(enable_werror "Treat warnings as errors" OFF)
 option(enable_atomic_intrinsics "Use GCC atomic intrinsics" ON)
@@ -315,7 +315,7 @@ if (install_headers)
   # TODO: handle atomic_ops-uninstalled.pc.in
 endif(install_headers)
 
-if (build_tests)
+if (BUILD_TESTING)
   add_executable(test_atomic tests/test_atomic.c)
   target_link_libraries(test_atomic PRIVATE atomic_ops ${THREADDLLIBS_LIST})
   add_test(NAME test_atomic COMMAND test_atomic)
@@ -346,8 +346,8 @@ if (build_tests)
     target_link_libraries(test_malloc
                 PRIVATE atomic_ops atomic_ops_gpl ${THREADDLLIBS_LIST})
     add_test(NAME test_malloc COMMAND test_malloc)
-  endif()
-endif(build_tests)
+  endif(enable_gpl)
+endif()
 
 if (enable_docs)
   install(FILES AUTHORS ChangeLog LICENSE README.md
