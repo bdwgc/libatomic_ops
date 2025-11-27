@@ -117,7 +117,7 @@ jobs:
   - arch: ppc64le
     compiler: clang
     env:
-    - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DBUILD_SHARED_LIBS=ON -Denable_assertions=ON -Denable_docs=OFF"
+    - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -DAO_BUILD_SHARED_LIBS=ON -Denable_assertions=ON -Denable_docs=OFF"
   - arch: ppc64le
     compiler: gcc
     env:
@@ -146,7 +146,7 @@ jobs:
     - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -Denable_atomic_intrinsics=OFF"
   - compiler: gcc
     env:
-    - CMAKE_OPTIONS="-DBUILD_SHARED_LIBS=ON -Dinstall_headers=OFF"
+    - CMAKE_OPTIONS="-DAO_BUILD_SHARED_LIBS=ON -Dinstall_headers=OFF"
   - compiler: clang
     env:
     - CFLAGS_EXTRA="-O3 -march=native -funsigned-char"
