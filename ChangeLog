@@ -1,5 +1,5 @@
 
-== [7.9.0] (development) ==
+== [7.10.0] 2025-11-28 ==
 
 * Add comment that overflow of a counter in AO_stack_pop is impossible
 * Add missed copyright header to ibmc/powerpc.h
