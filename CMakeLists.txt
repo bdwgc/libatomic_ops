@@ -22,14 +22,14 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-set(PACKAGE_VERSION 7.10.0)
+set(PACKAGE_VERSION 7.11.0)
 # Version must match that in AC_INIT of configure.ac and that in README.
 # Version must conform to: [0-9]+[.][0-9]+[.][0-9]+
 
 # Info (current:revision:age) for the Libtool versioning system.
 # These values should match those in src/Makefile.am.
-set(LIBATOMIC_OPS_VER_INFO      4:0:3)
-set(LIBATOMIC_OPS_GPL_VER_INFO  4:0:3)
+set(LIBATOMIC_OPS_VER_INFO      5:0:4)
+set(LIBATOMIC_OPS_GPL_VER_INFO  5:0:4)
 
 project(libatomic_ops C)
 
