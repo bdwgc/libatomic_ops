@@ -38,7 +38,7 @@ environment:
     ARCH: x64_arm64
     TEST_TARGET: check-deps
 
-clone_depth: 50
+clone_depth: 1
 
 build_script:
 - cmd: if [%TARGET%]==[cmake] (
