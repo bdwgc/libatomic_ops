@@ -93,7 +93,7 @@ jobs:
         ${{ matrix.disable_docs_opt }}
         ${{ matrix.disable_gpl_opt }}
         ${{ matrix.no_install_headers }}
-        -Werror=dev
+        -Werror=author
         -S ${{ github.workspace }}
 
     - name: Build
