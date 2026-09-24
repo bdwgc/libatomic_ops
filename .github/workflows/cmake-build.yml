@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ macos-15-intel, macos-latest, ubuntu-24.04-arm, ubuntu-latest, windows-11-arm, windows-latest ]
         c_compiler: [ cl, clang, gcc ]
-        build_type: [ Release, Debug, MinSizeRel ]
+        build_type: [ Release, Debug ]
         shared_libs: [ off, on ]
         assertions: [ off, on ]
         atomic_intrinsics: [ on, off ]
@@ -38,8 +38,6 @@ jobs:
           build_type: Debug
         - assertions: on
           build_type: Release
-        - build_type: MinSizeRel
-          shared_libs: off
         include:
         - os: windows-11-arm
           c_compiler: clang
