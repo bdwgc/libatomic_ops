@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ macos-15-intel, macos-latest, ubuntu-24.04-arm, ubuntu-latest, windows-11-arm, windows-latest ]
+        os: [ macos-26-intel, macos-latest, ubuntu-24.04-arm, ubuntu-latest, windows-11-arm, windows-latest ]
         c_compiler: [ cl, clang, gcc ]
         build_type: [ Release, Debug ]
         shared_libs: [ off, on ]
@@ -22,11 +22,11 @@ jobs:
         atomic_intrinsics: [ on, off ]
         exclude:
         - c_compiler: gcc
-          os: macos-15-intel
+          os: macos-26-intel
         - c_compiler: gcc
           os: macos-latest
         - c_compiler: cl
-          os: macos-15-intel
+          os: macos-26-intel
         - c_compiler: cl
           os: macos-latest
         - c_compiler: cl
