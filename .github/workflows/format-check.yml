@@ -1,0 +1,45 @@
+---
+# Workflow for checking formatting of source code and documentation.
+name: format check
+
+"on": [push, pull_request]
+
+jobs:
+  check:
+    name: ${{ matrix.type }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Deliver the feedback for all matrix combinations.
+      fail-fast: false
+
+      matrix:
+        type: [cmake, md, yaml]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install gersemi
+        if: ${{ matrix.type == 'cmake' }}
+        run: python3 -m pip install --upgrade gersemi
+
+      - name: Install yamllint
+        if: ${{ matrix.type == 'yaml' }}
+        run: python3 -m pip install --upgrade yamllint
+
+      - name: Dry-run gersemi (CMake files check)
+        if: ${{ matrix.type == 'cmake' }}
+        run: >-
+          python3 -m gersemi --check --diff CMakeLists.txt
+          Config.cmake.in
+
+      - name: Dry-run markdownlint
+        if: ${{ matrix.type == 'md' }}
+        uses: DavidAnson/markdownlint-cli2-action@v17
+        with:
+          globs: |
+            **/*.md
+
+      - name: Dry-run yamllint
+        if: ${{ matrix.type == 'yaml' }}
+        run: yamllint --strict .*.yml .github/workflows/*.yml
