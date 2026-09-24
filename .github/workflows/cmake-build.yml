@@ -1,11 +1,15 @@
+---
 # This workflow is for CMake-based build/test running on multiple platforms.
 name: cmake build
 
-on: [push, pull_request]
+"on": [push, pull_request]
 
 jobs:
   build:
-    name: ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }} dll:${{ matrix.shared_libs }} assert:${{ matrix.assertions }} intrinsic:${{ matrix.atomic_intrinsics }}
+    name: >-
+      ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }}
+      dll:${{ matrix.shared_libs }} assert:${{ matrix.assertions }}
+      intrinsic:${{ matrix.atomic_intrinsics }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 3
 
@@ -14,93 +18,101 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ macos-26-intel, macos-latest, ubuntu-24.04-arm, ubuntu-latest, windows-11-arm, windows-latest ]
-        c_compiler: [ cl, clang, gcc ]
-        build_type: [ Release, Debug ]
-        shared_libs: [ off, on ]
-        assertions: [ off, on ]
-        atomic_intrinsics: [ on, off ]
+        os:
+          - macos-26-intel
+          - macos-latest
+          - ubuntu-24.04-arm
+          - ubuntu-latest
+          - windows-11-arm
+          - windows-latest
+        c_compiler: [cl, clang, gcc]
+        build_type: [Release, Debug]
+        shared_libs: ["off", "on"]
+        assertions: ["off", "on"]
+        atomic_intrinsics: ["on", "off"]
         exclude:
-        - c_compiler: gcc
-          os: macos-26-intel
-        - c_compiler: gcc
-          os: macos-latest
-        - c_compiler: cl
-          os: macos-26-intel
-        - c_compiler: cl
-          os: macos-latest
-        - c_compiler: cl
-          os: ubuntu-24.04-arm
-        - c_compiler: cl
-          os: ubuntu-latest
-        # The following ones are to reduce amount of jobs.
-        - assertions: off
-          build_type: Debug
-        - assertions: on
-          build_type: Release
+          - c_compiler: gcc
+            os: macos-26-intel
+          - c_compiler: gcc
+            os: macos-latest
+          - c_compiler: cl
+            os: macos-26-intel
+          - c_compiler: cl
+            os: macos-latest
+          - c_compiler: cl
+            os: ubuntu-24.04-arm
+          - c_compiler: cl
+            os: ubuntu-latest
+          # The following ones are to reduce amount of jobs.
+          - assertions: "off"
+            build_type: Debug
+          - assertions: "on"
+            build_type: Release
         include:
-        - os: windows-11-arm
-          c_compiler: clang
-          cmake_generator_opt: '-G "Unix Makefiles"'
-        - os: windows-11-arm
-          c_compiler: gcc
-          cmake_generator_opt: '-G "Unix Makefiles"'
-        - os: windows-latest
-          c_compiler: clang
-          cmake_generator_opt: '-G "Unix Makefiles"'
-        - os: windows-latest
-          c_compiler: gcc
-          cmake_generator_opt: '-G "Unix Makefiles"'
-        # The following one are just to test some rare options.
-        - os: macos-latest
-          shared_libs: off
-          disable_docs_opt: '-Denable_docs=OFF'
-        - os: ubuntu-latest
-          assertions: on
-          c_compiler: gcc
-          shared_libs: on
-          no_install_headers: '-Dinstall_headers=OFF'
-        - os: windows-latest
-          assertions: off
-          c_compiler: clang
-          shared_libs: off
-          disable_gpl_opt: '-Denable_gpl=OFF'
+          - os: windows-11-arm
+            c_compiler: clang
+            cmake_generator_opt: '-G "Unix Makefiles"'
+          - os: windows-11-arm
+            c_compiler: gcc
+            cmake_generator_opt: '-G "Unix Makefiles"'
+          - os: windows-latest
+            c_compiler: clang
+            cmake_generator_opt: '-G "Unix Makefiles"'
+          - os: windows-latest
+            c_compiler: gcc
+            cmake_generator_opt: '-G "Unix Makefiles"'
+          # The following one are just to test some rare options.
+          - os: macos-latest
+            shared_libs: "off"
+            disable_docs_opt: '-Denable_docs=OFF'
+          - os: ubuntu-latest
+            assertions: "on"
+            c_compiler: gcc
+            shared_libs: "on"
+            no_install_headers: '-Dinstall_headers=OFF'
+          - os: windows-latest
+            assertions: "off"
+            c_compiler: clang
+            shared_libs: "off"
+            disable_gpl_opt: '-Denable_gpl=OFF'
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set reusable strings
-      # Turn repeated input strings into step outputs.
-      id: strings
-      shell: bash
-      run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+      - name: Set reusable strings
+        # Turn repeated input strings into step outputs.
+        id: strings
+        shell: bash
+        run: >
+          echo "build-output-dir=${{ github.workspace }}/build"
+          >> "$GITHUB_OUTPUT"
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory.
-      run: >
-        cmake --version &&
-        cmake -B ${{ steps.strings.outputs.build-output-dir }}
-        ${{ matrix.cmake_generator_opt }}
-        -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -Denable_werror=ON
-        -DAO_BUILD_SHARED_LIBS=${{ matrix.shared_libs }}
-        -Denable_assertions=${{ matrix.assertions }}
-        -Denable_atomic_intrinsics=${{ matrix.atomic_intrinsics }}
-        ${{ matrix.disable_docs_opt }}
-        ${{ matrix.disable_gpl_opt }}
-        ${{ matrix.no_install_headers }}
-        -Werror=author
-        -S ${{ github.workspace }}
+      - name: Configure CMake
+        # Configure CMake in a 'build' subdirectory.
+        run: >
+          cmake --version &&
+          cmake -B ${{ steps.strings.outputs.build-output-dir }}
+          ${{ matrix.cmake_generator_opt }}
+          -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -Denable_werror=ON
+          -DAO_BUILD_SHARED_LIBS=${{ matrix.shared_libs }}
+          -Denable_assertions=${{ matrix.assertions }}
+          -Denable_atomic_intrinsics=${{ matrix.atomic_intrinsics }}
+          ${{ matrix.disable_docs_opt }}
+          ${{ matrix.disable_gpl_opt }}
+          ${{ matrix.no_install_headers }}
+          -Werror=author
+          -S ${{ github.workspace }}
 
-    - name: Build
-      # Build the code with the given configuration.
-      run: >
-        cmake --build ${{ steps.strings.outputs.build-output-dir }}
-        --config ${{ matrix.build_type }} --verbose --parallel
+      - name: Build
+        # Build the code with the given configuration.
+        run: >
+          cmake --build ${{ steps.strings.outputs.build-output-dir }}
+          --config ${{ matrix.build_type }} --verbose --parallel
 
-    - name: Test
-      working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      # Execute tests defined by the CMake configuration.
-      run: ctest --build-config ${{ matrix.build_type }} --verbose --parallel 4
+      - name: Test
+        working-directory: ${{ steps.strings.outputs.build-output-dir }}
+        # Execute tests defined by the CMake configuration.
+        run: >
+           ctest --build-config ${{ matrix.build_type }} --verbose --parallel 4
