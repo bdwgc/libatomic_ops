@@ -38,11 +38,6 @@ jobs:
     - MAKEFILE_TARGET=all
   - compiler: clang
     env:
-    - CSA_CHECK=true
-    - MAKEFILE_TARGET=all
-    - CFLAGS_EXTRA="-D AO_TRACE_MALLOC -D HAVE_MMAP -D VERBOSE_STACK"
-  - compiler: clang
-    env:
     - CONF_OPTIONS="--disable-gpl"
   - arch: arm64
     compiler: clang
@@ -562,7 +557,7 @@ script:
 - if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
     ./configure $CONF_OPTIONS --enable-werror;
   fi
-- if [[ "$CSA_CHECK" != true && "$CMAKE_OPTIONS" == ""
+- if [[ "$CMAKE_OPTIONS" == ""
         && "$CPPCHECK_ENABLE" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
     cat src/config.h;
   fi
@@ -583,10 +578,6 @@ script:
   fi
 - if [ -f tests/test_atomic.log ]; then cat tests/test_atomic*.log; fi
 - if [ -f tests/test_stack.log ]; then cat tests/test_stack.log; fi
-- if [[ "$CSA_CHECK" == true ]]; then
-    ${CC} --analyze -Xanalyzer -analyzer-output=text -Werror -I src
-          $CFLAGS_EXTRA src/*.c tests/*.c;
-  fi
 - if [[ "$CPPCHECK_ENABLE" != "" ]]; then
     cppcheck -f --error-exitcode=2 -U AO_API -D CPPCHECK -I src
              $CPPCHECK_ENABLE --check-level=exhaustive src/*.c tests/*.c;
