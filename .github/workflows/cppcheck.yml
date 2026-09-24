@@ -1,0 +1,38 @@
+---
+# This workflow is to check C source with cppcheck.
+name: cppcheck
+
+"on": [push, pull_request]
+
+jobs:
+  check:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-24.04-arm
+
+    strategy:
+      # Deliver the feedback for all matrix combinations.
+      fail-fast: false
+
+      matrix:
+        include:
+          - name: Check unused
+            args: --enable=unusedFunction -D AO_TEST_EMULATION
+          - name: All checks (other)
+            args: >-
+              -j4 --enable=information,performance,portability,style,warning
+              --suppress=missingIncludeSystem --suppress=unmatchedSuppression
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install cppcheck (Ubuntu)
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: cppcheck
+          version: 1.0
+
+      - name: Run cppcheck analysis
+        run: >-
+          cppcheck --force --error-exitcode=2 --quiet -D CPPCHECK -U AO_API
+          -U HAVE_CONFIG_H -I src --check-level=exhaustive --safety
+          ${{ matrix.args }} `find . -iname '*.c'`
