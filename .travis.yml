@@ -2,6 +2,9 @@ language: c
 os: linux
 dist: noble
 
+git:
+  depth: 1
+
 jobs:
   include:
   - compiler: clang
