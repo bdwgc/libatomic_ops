@@ -20,7 +20,6 @@ This is version 7.11.0 (next release development) of libatomic_ops.
 License: [MIT](LICENSE) for core library / [GPL-2.0](COPYING) for gpl
 extension.
 
-
 ## Download
 
 You might find a more recent/stable version on the
@@ -29,7 +28,6 @@ You might find a more recent/stable version on the
 
 Also, the latest bug fixes and new features are available in the
 [development repository](https://github.com/bdwgc/libatomic_ops).
-
 
 ## Overview
 
@@ -56,7 +54,6 @@ Please see other README files for the details:
 
 * [README_stack.txt](README_stack.txt) -  an almost lock-free LIFO linked
   lists (stack) implementation (part of libatomic_ops_gpl)
-
 
 ## Installation and Usage
 
@@ -85,7 +82,6 @@ However, two small libraries are built and installed:
   latter is used to build the package).  The licensing details are given in
   [COPYING](COPYING) and [LICENSE](LICENSE) files.
 
-
 ## Platform Specific Notes
 
 Win32/64: src/Makefile.msft contains a very simple Makefile for building
@@ -97,7 +93,6 @@ More information is provided in [README_win32.txt](README_win32.txt) file.
 
 HP-UX/PA-RISC: `aCC -Ae` won't work as a C compiler, since it doesn't support
 inline assembly code.  Use cc.
-
 
 ## Feedback, Contribution, Questions and Notifications
 
@@ -125,7 +120,6 @@ To get new release announcements, subscribe to
 To be notified on all issues, please
 [watch](https://github.com/bdwgc/libatomic_ops/watchers) the project on
 GitHub.
-
 
 ## Copyright & Warranty, Contributors
 
