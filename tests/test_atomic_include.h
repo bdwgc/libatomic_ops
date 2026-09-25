@@ -771,7 +771,7 @@ void test_atomic_release(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_release)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_release(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -813,7 +813,7 @@ void test_atomic_release(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_release)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_release(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -854,7 +854,7 @@ void test_atomic_release(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_release)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_release(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -1385,7 +1385,7 @@ void test_atomic_acquire(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_acquire)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_acquire(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -1427,7 +1427,7 @@ void test_atomic_acquire(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_acquire)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_acquire(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -1468,7 +1468,7 @@ void test_atomic_acquire(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_acquire)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_acquire(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -1999,7 +1999,7 @@ void test_atomic_read(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_read)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_read(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -2041,7 +2041,7 @@ void test_atomic_read(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_read)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_read(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -2082,7 +2082,7 @@ void test_atomic_read(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_read)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_read(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -2613,7 +2613,7 @@ void test_atomic_write(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_write)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_write(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -2655,7 +2655,7 @@ void test_atomic_write(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_write)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_write(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -2696,7 +2696,7 @@ void test_atomic_write(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_write)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_write(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -3227,7 +3227,7 @@ void test_atomic_full(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_full)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_full(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -3269,7 +3269,7 @@ void test_atomic_full(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_full)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_full(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -3310,7 +3310,7 @@ void test_atomic_full(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_full)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_full(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -3841,7 +3841,7 @@ void test_atomic_release_write(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_release_write)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_release_write(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -3883,7 +3883,7 @@ void test_atomic_release_write(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_release_write)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_release_write(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -3924,7 +3924,7 @@ void test_atomic_release_write(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_release_write)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_release_write(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -4455,7 +4455,7 @@ void test_atomic_acquire_read(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_acquire_read)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_acquire_read(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -4497,7 +4497,7 @@ void test_atomic_acquire_read(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_acquire_read)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_acquire_read(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -4538,7 +4538,7 @@ void test_atomic_acquire_read(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_acquire_read)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_acquire_read(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
@@ -5069,7 +5069,7 @@ void test_atomic_dd_acquire_read(void)
     s = 13;
 # endif
 # if defined(AO_HAVE_short_load_dd_acquire_read)
-    TA_assert(AO_short_load(&s) == 13);
+    TA_assert(AO_short_load_dd_acquire_read(&s) == 13);
 # elif !defined(AO_HAVE_short_load) || !defined(AO_HAVE_short_load_acquire) \
        || !defined(AO_HAVE_short_load_acquire_read) \
        || !defined(AO_HAVE_short_load_dd_acquire_read) \
@@ -5111,7 +5111,7 @@ void test_atomic_dd_acquire_read(void)
     b = 13;
 # endif
 # if defined(AO_HAVE_char_load_dd_acquire_read)
-    TA_assert(AO_char_load(&b) == 13);
+    TA_assert(AO_char_load_dd_acquire_read(&b) == 13);
 # elif !defined(AO_HAVE_char_load) || !defined(AO_HAVE_char_load_acquire) \
        || !defined(AO_HAVE_char_load_acquire_read) \
        || !defined(AO_HAVE_char_load_dd_acquire_read) \
@@ -5152,7 +5152,7 @@ void test_atomic_dd_acquire_read(void)
     zz = 13;
 # endif
 # if defined(AO_HAVE_int_load_dd_acquire_read)
-    TA_assert(AO_int_load(&zz) == 13);
+    TA_assert(AO_int_load_dd_acquire_read(&zz) == 13);
 # elif !defined(AO_HAVE_int_load) || !defined(AO_HAVE_int_load_acquire) \
        || !defined(AO_HAVE_int_load_acquire_read) \
        || !defined(AO_HAVE_int_load_dd_acquire_read) \
