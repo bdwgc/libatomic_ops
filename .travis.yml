@@ -1,3 +1,4 @@
+---
 language: c
 os: linux
 dist: noble
@@ -7,581 +8,619 @@ git:
 
 jobs:
   include:
-  - compiler: clang
-  - compiler: gcc
-  - env:
-    - MAKEFILE_TARGET=dist
-  - addons:
-      apt:
-        packages:
-        - lcov
-    compiler: gcc
-    env:
-    - CONF_OPTIONS="--enable-shared"
-    - CC_FOR_CHECK=gcc
-    - MAKEFILE_TARGET=all
-    - REPORT_COVERAGE=true
-    - CFLAGS_EXTRA="--coverage -O0 -fprofile-update=atomic -march=native -D DEBUG_RUN_ONE_TEST -D VERBOSE_STACK"
-  - compiler: clang
-    env:
-    - CONF_OPTIONS="--disable-gpl"
-  - arch: arm64
-    compiler: clang
-  - arch: arm64
-    compiler: gcc
-  - arch: arm64
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -D AO_STACK_USE_CPTR -D N_EXPERIMENTS=10"
-    - CONF_OPTIONS="--enable-assertions"
-  - arch: arm64
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-O3"
-    - CONF_OPTIONS="--enable-assertions --disable-static"
-    - TESTS_CUSTOM_RUN=true
-  - arch: arm64
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -D AO_AARCH64_ASM_LOAD_STORE_CAS -D AO_PREFER_BUILTIN_ATOMICS"
-    - TESTS_CUSTOM_RUN=true
-  - arch: arm64
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-O3 -march=armv8.2-a"
-    - CONF_OPTIONS="--enable-shared"
-    - TESTS_CUSTOM_RUN=true
-  - arch: arm64
-    compiler: clang
-    dist: focal
-    env:
-    - CFLAGS_EXTRA="-fsanitize=address -fno-omit-frame-pointer"
-    - CONF_OPTIONS="--disable-atomic-intrinsics"
-    - TESTS_CUSTOM_RUN=true
-  - addons:
-      apt:
-        packages:
-        - musl-tools
-    arch: arm64
-    compiler: musl-gcc
-    dist: focal
-    env:
-    - CFLAGS_EXTRA="-O3"
-    - TESTS_CUSTOM_RUN=true
-  - arch: arm64
-    compiler: gcc
-    env:
-    - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -Denable_docs=OFF"
-  - arch: s390x
-    compiler: clang
-  - arch: s390x
-    compiler: gcc
-  - arch: s390x
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -D AO_BL_SIZE=6"
-    - CONF_OPTIONS="--enable-assertions --enable-shared"
-    - TESTS_CUSTOM_RUN=true
-  - arch: s390x
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-O3"
-    - TESTS_CUSTOM_RUN=true
-  - os: freebsd
-    env:
-    - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -Denable_gpl=OFF"
-    - CMAKE_BUILD_OPTIONS="--verbose"
-  - compiler: clang
-    env:
-    - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug -Denable_atomic_intrinsics=OFF"
-  - compiler: gcc
-    env:
-    - CMAKE_OPTIONS="-DAO_BUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=MinSizeRel -Dinstall_headers=OFF"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -march=native -funsigned-char -D NO_TIMES"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-O3 -march=native"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-march=native -std=c11 -D AO_INITIAL_HEAP_CHUNKS=2"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -march=native -std=c11 -D AO_BL_SIZE=4 -D DEFAULT_NTHREADS=32"
-  - compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-march=native -D _FORTIFY_SOURCE=2 -std=c89"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-m32"
-    - CONF_OPTIONS="--enable-assertions"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-m32 -O3 -march=native"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: clang
-    env:
-    - CFLAGS_EXTRA="-m32 -march=native"
-    - CONF_OPTIONS="--disable-atomic-intrinsics"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-m32 -march=native -funsigned-char -D AO_USE_ALMOST_LOCK_FREE"
-    - CONF_OPTIONS="--enable-assertions"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-m32 -march=native"
-    - CONF_OPTIONS="--disable-atomic-intrinsics"
-  - compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-D AO_GENERALIZE_ASM_BOOL_CAS -D AO_USE_NANOSLEEP -D AO_USE_NO_SIGNALS"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-D AO_USE_PTHREAD_DEFS"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-D DONT_USE_MMAP -O3"
-    - CONF_OPTIONS="--enable-assertions --enable-shared"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-O3 -march=native"
-  - compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-O3 -march=native -fanalyzer -funsigned-char"
-    - CONF_OPTIONS="--enable-assertions --disable-static"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-m32 -O3 -march=native"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    dist: focal
-    env:
-    - CFLAGS_EXTRA="-mx32 -march=native -D _FORTIFY_SOURCE=2"
-    - CONF_OPTIONS="--enable-assertions --enable-shared"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    dist: focal
-    env:
-    - CFLAGS_EXTRA="-mx32 -march=native"
-    - CONF_OPTIONS="--disable-atomic-intrinsics --disable-docs"
-  - compiler: clang
-    dist: jammy
-    env:
-    - CFLAGS_EXTRA="-fsanitize=address -D AO_USE_ALMOST_LOCK_FREE -fno-omit-frame-pointer"
-    - TESTS_CUSTOM_RUN=true
-  - compiler: clang
-    dist: jammy
-    env:
-    - CFLAGS_EXTRA="-fsanitize=address -march=native -fno-common -fno-omit-frame-pointer"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-fsanitize=address -fno-omit-frame-pointer -D AO_USE_ALMOST_LOCK_FREE -D USE_STANDARD_MALLOC"
-    - CONF_OPTIONS="--enable-assertions"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    compiler: gcc
-    env:
-    - CFLAGS_EXTRA="-fsanitize=address -m32 -march=native -fno-omit-frame-pointer"
-    - LDFLAGS="-fuse-ld=gold"
-  - compiler: clang
-    dist: jammy
-    env:
-    - CFLAGS_EXTRA="-fsanitize=memory,undefined -march=native -fno-omit-frame-pointer"
-    - TESTS_CUSTOM_RUN=true
-  - compiler: clang
-    dist: jammy
-    env:
-    - CFLAGS_EXTRA="-fsanitize=thread -D AO_USE_ALMOST_LOCK_FREE -fno-omit-frame-pointer"
-  - compiler: clang
-    dist: jammy
-    env:
-    - CFLAGS_EXTRA="-fsanitize=thread -march=native -fno-omit-frame-pointer"
-    - CONF_OPTIONS="--enable-assertions"
-  - compiler: clang
-    env:
-    - CONF_OPTIONS="--disable-atomic-intrinsics"
-    - CFLAGS_EXTRA="-march=native"
-  - compiler: clang
-    env:
-    - CFLAGS_EXTRA="-x c++ -march=native -D VERBOSE_STACK"
-    - CONF_OPTIONS="--enable-assertions"
-    - MAKEFILE_TARGET=all
-  - compiler: gcc
-    env:
-    - CC_FOR_CHECK=g++
-    - MAKEFILE_TARGET=all
-  - addons:
-      apt:
-        packages:
-        - musl-tools
-    compiler: musl-gcc
-    env:
-    - CFLAGS_EXTRA="-march=native"
-    - CONF_OPTIONS="--enable-assertions"
-  - addons:
-      apt:
-        packages:
-        - gcc-mingw-w64
-    compiler: x86_64-w64-mingw32-gcc
-    env:
-    - CONF_OPTIONS="--host=x86_64-w64-mingw32 --enable-shared --disable-static"
-    - MAKEFILE_TARGET=all
-  - addons:
-      apt:
-        packages:
-        - gcc-mingw-w64
-    compiler: i686-w64-mingw32-gcc
-    env:
-    - CONF_OPTIONS="--host=i686-w64-mingw32"
-    - MAKEFILE_TARGET=all
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=aarch64-linux
-    - CFLAGS_EXTRA="-mabi=ilp32"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=alpha-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=arm-linux-gnueabi
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=arm-linux-gnueabi
-    - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
-  - addons:
-      apt:
-        packages:
-        - gcc-4.6
-        - gcc-multilib
-        sources:
-        - ubuntu-toolchain-r-test
-    compiler: gcc-4.6
-    dist: xenial
-    env:
-    - CROSS_GCC_VER=4.2.4
-    - NOLIBC_ARCH_ABI=avr32-linux
-    - NOLIBC_DELIM=_
-    - CFLAGS_EXTRA="-fno-strict-aliasing"
-  - addons:
-      apt:
-        packages:
-        - gcc-4.6
-        - gcc-multilib
-        sources:
-        - ubuntu-toolchain-r-test
-    compiler: gcc-4.6
-    dist: xenial
-    env:
-    - CROSS_GCC_VER=4.6.3
-    - NOLIBC_ARCH_ABI=cris-linux
-    - NOLIBC_DELIM=_
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=hppa-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=ia64-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=m68k-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=mips-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=mips-linux
-    - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=mips64-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=nios2-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=powerpc-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=powerpc-linux
-    - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=powerpc64-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=riscv32-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=riscv64-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=s390-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=sh2-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=sh4-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=sparc-linux
-    - CFLAGS_EXTRA="-D AO_NO_SPARC_V9"
-  - addons:
-      apt:
-        packages:
-        - gcc-multilib
-    env:
-    - CROSS_GCC_VER=8.1.0
-    - NOLIBC_ARCH_ABI=sparc64-linux
-  - addons:
-      apt:
-        packages:
-        - gcc-4.6
-        - gcc-multilib
-        sources:
-        - ubuntu-toolchain-r-test
-    compiler: gcc-4.6
-    dist: xenial
-    env:
-    - CROSS_GCC_VER=4.6.2
-    - NOLIBC_ARCH_ABI=tilegx-linux
-    - NOLIBC_DELIM=_
-  - env:
-    - MAKEFILE_TARGET=distcheck
-    - AUTOCONF_VER=2.73
-    - AUTOMAKE_VER=1.19
-    - LIBTOOL_VER=2.6.2
-    - M4_VER=1.4.21
-  - if: type != pull_request
-    addons:
-      coverity_scan:
-        project:
-          name: bdwgc/libatomic_ops
-          version: 7.11.0
-        notification_email: ivmai@mail.ru
-        branch_pattern: master
-        build_command_prepend: CFLAGS=-march=native ./configure
-        build_command: make -j check CFLAGS_EXTRA=-DLINT2
-    env:
-    - COVERITY_SCAN_BRANCH=1
+    - compiler: clang
+    - compiler: gcc
+    - env:
+        - MAKEFILE_TARGET=dist
+    - addons:
+        apt:
+          packages:
+            - lcov
+      compiler: gcc
+      env:
+        - CONF_OPTIONS="--enable-shared"
+        - CC_FOR_CHECK=gcc
+        - MAKEFILE_TARGET=all
+        - REPORT_COVERAGE=true
+        - >-
+          CFLAGS_EXTRA="--coverage -O0 -fprofile-update=atomic -march=native
+          -D DEBUG_RUN_ONE_TEST -D VERBOSE_STACK"
+    - compiler: clang
+      env:
+        - CONF_OPTIONS="--disable-gpl"
+    - arch: arm64
+      compiler: clang
+    - arch: arm64
+      compiler: gcc
+    - arch: arm64
+      compiler: clang
+      env:
+        - CFLAGS_EXTRA="-O3 -D AO_STACK_USE_CPTR -D N_EXPERIMENTS=10"
+        - CONF_OPTIONS="--enable-assertions"
+    - arch: arm64
+      compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-O3"
+        - CONF_OPTIONS="--enable-assertions --disable-static"
+        - TESTS_CUSTOM_RUN=true
+    - arch: arm64
+      compiler: clang
+      env:
+        - >-
+          CFLAGS_EXTRA="-O3 -D AO_AARCH64_ASM_LOAD_STORE_CAS
+          -D AO_PREFER_BUILTIN_ATOMICS"
+        - TESTS_CUSTOM_RUN=true
+    - arch: arm64
+      compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-O3 -march=armv8.2-a"
+        - CONF_OPTIONS="--enable-shared"
+        - TESTS_CUSTOM_RUN=true
+    - arch: arm64
+      compiler: clang
+      dist: focal
+      env:
+        - CFLAGS_EXTRA="-fsanitize=address -fno-omit-frame-pointer"
+        - CONF_OPTIONS="--disable-atomic-intrinsics"
+        - TESTS_CUSTOM_RUN=true
+    - addons:
+        apt:
+          packages:
+            - musl-tools
+      arch: arm64
+      compiler: musl-gcc
+      dist: focal
+      env:
+        - CFLAGS_EXTRA="-O3"
+        - TESTS_CUSTOM_RUN=true
+    - arch: arm64
+      compiler: gcc
+      env:
+        - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -Denable_docs=OFF"
+    - arch: s390x
+      compiler: clang
+    - arch: s390x
+      compiler: gcc
+    - arch: s390x
+      compiler: clang
+      env:
+        - CFLAGS_EXTRA="-O3 -D AO_BL_SIZE=6"
+        - CONF_OPTIONS="--enable-assertions --enable-shared"
+        - TESTS_CUSTOM_RUN=true
+    - arch: s390x
+      compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-O3"
+        - TESTS_CUSTOM_RUN=true
+    - os: freebsd
+      env:
+        - CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Release -Denable_gpl=OFF"
+        - CMAKE_BUILD_OPTIONS="--verbose"
+    - compiler: clang
+      env:
+        - >-
+          CMAKE_OPTIONS="-DCMAKE_BUILD_TYPE=Debug
+          -Denable_atomic_intrinsics=OFF"
+    - compiler: gcc
+      env:
+        - >-
+          CMAKE_OPTIONS="-DAO_BUILD_SHARED_LIBS=ON
+          -DCMAKE_BUILD_TYPE=MinSizeRel -Dinstall_headers=OFF"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-O3 -march=native -funsigned-char -D NO_TIMES"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-O3 -march=native"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-march=native -std=c11 -D AO_INITIAL_HEAP_CHUNKS=2"
+    - compiler: clang
+      env:
+        - >-
+          CFLAGS_EXTRA="-O3 -march=native -std=c11 -D AO_BL_SIZE=4
+          -D DEFAULT_NTHREADS=32"
+    - compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-march=native -D _FORTIFY_SOURCE=2 -std=c89"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: clang
+      env:
+        - CFLAGS_EXTRA="-m32"
+        - CONF_OPTIONS="--enable-assertions"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: clang
+      env:
+        - CFLAGS_EXTRA="-m32 -O3 -march=native"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: clang
+      env:
+        - CFLAGS_EXTRA="-m32 -march=native"
+        - CONF_OPTIONS="--disable-atomic-intrinsics"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      env:
+        - >-
+          CFLAGS_EXTRA="-m32 -march=native -funsigned-char
+          -D AO_USE_ALMOST_LOCK_FREE"
+        - CONF_OPTIONS="--enable-assertions"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-m32 -march=native"
+        - CONF_OPTIONS="--disable-atomic-intrinsics"
+    - compiler: gcc
+      env:
+        - >-
+          CFLAGS_EXTRA="-D AO_GENERALIZE_ASM_BOOL_CAS -D AO_USE_NANOSLEEP
+          -D AO_USE_NO_SIGNALS"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-D AO_USE_PTHREAD_DEFS"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-D DONT_USE_MMAP -O3"
+        - CONF_OPTIONS="--enable-assertions --enable-shared"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-O3 -march=native"
+    - compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-O3 -march=native -fanalyzer -funsigned-char"
+        - CONF_OPTIONS="--enable-assertions --disable-static"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      env:
+        - CFLAGS_EXTRA="-m32 -O3 -march=native"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      dist: focal
+      env:
+        - CFLAGS_EXTRA="-mx32 -march=native -D _FORTIFY_SOURCE=2"
+        - CONF_OPTIONS="--enable-assertions --enable-shared"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      dist: focal
+      env:
+        - CFLAGS_EXTRA="-mx32 -march=native"
+        - CONF_OPTIONS="--disable-atomic-intrinsics --disable-docs"
+    - compiler: clang
+      dist: jammy
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=address -D AO_USE_ALMOST_LOCK_FREE
+          -fno-omit-frame-pointer"
+        - TESTS_CUSTOM_RUN=true
+    - compiler: clang
+      dist: jammy
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=address -march=native -fno-common
+          -fno-omit-frame-pointer"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: gcc
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=address -fno-omit-frame-pointer
+          -D AO_USE_ALMOST_LOCK_FREE -D USE_STANDARD_MALLOC"
+        - CONF_OPTIONS="--enable-assertions"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      compiler: gcc
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=address -m32 -march=native
+          -fno-omit-frame-pointer"
+        - LDFLAGS="-fuse-ld=gold"
+    - compiler: clang
+      dist: jammy
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=memory,undefined -march=native
+          -fno-omit-frame-pointer"
+        - TESTS_CUSTOM_RUN=true
+    - compiler: clang
+      dist: jammy
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=thread -D AO_USE_ALMOST_LOCK_FREE
+          -fno-omit-frame-pointer"
+    - compiler: clang
+      dist: jammy
+      env:
+        - >-
+          CFLAGS_EXTRA="-fsanitize=thread -march=native
+          -fno-omit-frame-pointer"
+        - CONF_OPTIONS="--enable-assertions"
+    - compiler: clang
+      env:
+        - CONF_OPTIONS="--disable-atomic-intrinsics"
+        - CFLAGS_EXTRA="-march=native"
+    - compiler: clang
+      env:
+        - CFLAGS_EXTRA="-x c++ -march=native -D VERBOSE_STACK"
+        - CONF_OPTIONS="--enable-assertions"
+        - MAKEFILE_TARGET=all
+    - compiler: gcc
+      env:
+        - CC_FOR_CHECK=g++
+        - MAKEFILE_TARGET=all
+    - addons:
+        apt:
+          packages:
+            - musl-tools
+      compiler: musl-gcc
+      env:
+        - CFLAGS_EXTRA="-march=native"
+        - CONF_OPTIONS="--enable-assertions"
+    - addons:
+        apt:
+          packages:
+            - gcc-mingw-w64
+      compiler: x86_64-w64-mingw32-gcc
+      env:
+        - >-
+          CONF_OPTIONS="--host=x86_64-w64-mingw32 --enable-shared
+          --disable-static"
+        - MAKEFILE_TARGET=all
+    - addons:
+        apt:
+          packages:
+            - gcc-mingw-w64
+      compiler: i686-w64-mingw32-gcc
+      env:
+        - CONF_OPTIONS="--host=i686-w64-mingw32"
+        - MAKEFILE_TARGET=all
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=aarch64-linux
+        - CFLAGS_EXTRA="-mabi=ilp32"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=alpha-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=arm-linux-gnueabi
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=arm-linux-gnueabi
+        - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
+    - addons:
+        apt:
+          packages:
+            - gcc-4.6
+            - gcc-multilib
+          sources:
+            - ubuntu-toolchain-r-test
+      compiler: gcc-4.6
+      dist: xenial
+      env:
+        - CROSS_GCC_VER=4.2.4
+        - NOLIBC_ARCH_ABI=avr32-linux
+        - NOLIBC_DELIM=_
+        - CFLAGS_EXTRA="-fno-strict-aliasing"
+    - addons:
+        apt:
+          packages:
+            - gcc-4.6
+            - gcc-multilib
+          sources:
+            - ubuntu-toolchain-r-test
+      compiler: gcc-4.6
+      dist: xenial
+      env:
+        - CROSS_GCC_VER=4.6.3
+        - NOLIBC_ARCH_ABI=cris-linux
+        - NOLIBC_DELIM=_
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=hppa-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=ia64-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=m68k-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=mips-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=mips-linux
+        - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=mips64-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=nios2-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=powerpc-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=powerpc-linux
+        - CFLAGS_EXTRA="-D AO_DISABLE_GCC_ATOMICS"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=powerpc64-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=riscv32-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=riscv64-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=s390-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=sh2-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=sh4-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=sparc-linux
+        - CFLAGS_EXTRA="-D AO_NO_SPARC_V9"
+    - addons:
+        apt:
+          packages:
+            - gcc-multilib
+      env:
+        - CROSS_GCC_VER=8.1.0
+        - NOLIBC_ARCH_ABI=sparc64-linux
+    - addons:
+        apt:
+          packages:
+            - gcc-4.6
+            - gcc-multilib
+          sources:
+            - ubuntu-toolchain-r-test
+      compiler: gcc-4.6
+      dist: xenial
+      env:
+        - CROSS_GCC_VER=4.6.2
+        - NOLIBC_ARCH_ABI=tilegx-linux
+        - NOLIBC_DELIM=_
+    - env:
+        - MAKEFILE_TARGET=distcheck
+        - AUTOCONF_VER=2.73
+        - AUTOMAKE_VER=1.19
+        - LIBTOOL_VER=2.6.2
+        - M4_VER=1.4.21
+    - if: type != pull_request
+      addons:
+        coverity_scan:
+          project:
+            name: bdwgc/libatomic_ops
+            version: 7.11.0
+          notification_email: ivmai@mail.ru
+          branch_pattern: master
+          build_command_prepend: CFLAGS=-march=native ./configure
+          build_command: make -j check CFLAGS_EXTRA=-DLINT2
+      env:
+        - COVERITY_SCAN_BRANCH=1
 
 before_install:
-- if [[ "$CROSS_GCC_VER" != "" ]]; then
-    if [[ "$NOLIBC_DELIM" == "" ]]; then NOLIBC_DELIM=-; fi;
-    BUILD_ARCH=x86_64;
-    KERNEL_ORG_PUB_SITE=https://www.kernel.org/pub;
-    TAR_FOLDER_URL=$KERNEL_ORG_PUB_SITE/tools/crosstool/files/bin/$BUILD_ARCH/$CROSS_GCC_VER;
-    TARFILE=$BUILD_ARCH-gcc-$CROSS_GCC_VER-nolibc$NOLIBC_DELIM$NOLIBC_ARCH_ABI.tar.xz;
-    wget --no-check-certificate -O - $TAR_FOLDER_URL/$TARFILE | tar xf - --xz --directory ~;
-    CROSS_CC=~/gcc-$CROSS_GCC_VER-nolibc/$NOLIBC_ARCH_ABI/bin/$NOLIBC_ARCH_ABI-gcc;
-    export C_INCLUDE_PATH=/usr/include;
-    MAKEFILE_TARGET=check-nolink;
-  fi
-- if [[ "$AUTOCONF_VER" != "" || "$AUTOMAKE_VER" != "" || "$LIBTOOL_VER" != "" || "$M4_VER" != "" ]]; then
-    GNUTOOLS_ROOT=`pwd`/../gnu-tools;
-    export PATH=$GNUTOOLS_ROOT/bin:$PATH;
-    GNU_DOWNLOAD_SITE=https://ftp.gnu.org/gnu;
-  fi
-- if [[ "$M4_VER" != "" ]]; then
-    M4_XZ_URL=$GNU_DOWNLOAD_SITE/m4/m4-$M4_VER.tar.xz;
-    wget -O - $M4_XZ_URL | tar xf - --xz --directory ~;
-    (cd ~/m4-$M4_VER && ./configure --prefix=$GNUTOOLS_ROOT && make -j && make install);
-  fi
-- if [[ "$LIBTOOL_VER" != "" ]]; then
-    LIBTOOL_XZ_URL=$GNU_DOWNLOAD_SITE/libtool/libtool-$LIBTOOL_VER.tar.xz;
-    wget -O - $LIBTOOL_XZ_URL | tar xf - --xz --directory ~;
-    (cd ~/libtool-$LIBTOOL_VER && ./configure --prefix=$GNUTOOLS_ROOT && make -j && make install);
-  fi
-- if [[ "$AUTOCONF_VER" != "" ]]; then
-    AUTOCONF_XZ_URL=$GNU_DOWNLOAD_SITE/autoconf/autoconf-$AUTOCONF_VER.tar.xz;
-    wget -O - $AUTOCONF_XZ_URL | tar xf - --xz --directory ~;
-    (cd ~/autoconf-$AUTOCONF_VER && ./configure --prefix=$GNUTOOLS_ROOT && make -j && make install);
-  fi
-- if [[ "$AUTOMAKE_VER" != "" ]]; then
-    AUTOMAKE_XZ_URL=$GNU_DOWNLOAD_SITE/automake/automake-$AUTOMAKE_VER.tar.xz;
-    wget -O - $AUTOMAKE_XZ_URL | tar xf - --xz --directory ~;
-    (cd ~/automake-$AUTOMAKE_VER && ./configure --prefix=$GNUTOOLS_ROOT && make -j && make install);
-  fi
-- if [[ "$REPORT_COVERAGE" == true ]]; then
-    mkdir -p ../coveralls;
-    wget -O - https://coveralls.io/coveralls-linux.tar.gz | tar xf - --gz --directory ../coveralls;
-    export PATH=`pwd`/../coveralls:$PATH;
-  fi
-- if [[ "$MAKEFILE_TARGET" == "dist"* ]]; then
-    autoconf --version;
-    automake --version;
-    m4 --version;
-    libtool --version || true;
-  fi
-- if [[ "$CMAKE_OPTIONS" != "" ]]; then
-    cmake --version;
-  fi
-- if [[ "$MAKEFILE_TARGET" == "" ]]; then MAKEFILE_TARGET=check; fi
+  - if [[ "$CROSS_GCC_VER" != "" ]]; then
+      if [[ "$NOLIBC_DELIM" == "" ]]; then NOLIBC_DELIM=-; fi;
+      BUILD_ARCH=x86_64;
+      KERNEL_ORG_PUB_SITE=https://www.kernel.org/pub;
+      TAR_FOLDER_URL=$KERNEL_ORG_PUB_SITE/tools/crosstool/files/bin/$BUILD_ARCH/$CROSS_GCC_VER;
+      TARFILE=$BUILD_ARCH-gcc-$CROSS_GCC_VER-nolibc$NOLIBC_DELIM$NOLIBC_ARCH_ABI.tar.xz;
+      wget --no-check-certificate -O - $TAR_FOLDER_URL/$TARFILE
+        | tar xf - --xz --directory ~;
+      CROSS_CC=~/gcc-$CROSS_GCC_VER-nolibc/$NOLIBC_ARCH_ABI/bin/$NOLIBC_ARCH_ABI-gcc;
+      export C_INCLUDE_PATH=/usr/include;
+      MAKEFILE_TARGET=check-nolink;
+    fi
+  - if [[ "$AUTOCONF_VER" != "" || "$AUTOMAKE_VER" != ""
+          || "$LIBTOOL_VER" != "" || "$M4_VER" != "" ]]; then
+      GNUTOOLS_ROOT=`pwd`/../gnu-tools;
+      export PATH=$GNUTOOLS_ROOT/bin:$PATH;
+      GNU_DOWNLOAD_SITE=https://ftp.gnu.org/gnu;
+    fi
+  - if [[ "$M4_VER" != "" ]]; then
+      M4_XZ_URL=$GNU_DOWNLOAD_SITE/m4/m4-$M4_VER.tar.xz;
+      wget -O - $M4_XZ_URL | tar xf - --xz --directory ~;
+      (cd ~/m4-$M4_VER && ./configure --prefix=$GNUTOOLS_ROOT
+        && make -j && make install);
+    fi
+  - if [[ "$LIBTOOL_VER" != "" ]]; then
+      LIBTOOL_XZ_URL=$GNU_DOWNLOAD_SITE/libtool/libtool-$LIBTOOL_VER.tar.xz;
+      wget -O - $LIBTOOL_XZ_URL | tar xf - --xz --directory ~;
+      (cd ~/libtool-$LIBTOOL_VER && ./configure --prefix=$GNUTOOLS_ROOT
+        && make -j && make install);
+    fi
+  - if [[ "$AUTOCONF_VER" != "" ]]; then
+      AUTOCONF_XZ_URL=$GNU_DOWNLOAD_SITE/autoconf/autoconf-$AUTOCONF_VER.tar.xz;
+      wget -O - $AUTOCONF_XZ_URL | tar xf - --xz --directory ~;
+      (cd ~/autoconf-$AUTOCONF_VER && ./configure --prefix=$GNUTOOLS_ROOT
+        && make -j && make install);
+    fi
+  - if [[ "$AUTOMAKE_VER" != "" ]]; then
+      AUTOMAKE_XZ_URL=$GNU_DOWNLOAD_SITE/automake/automake-$AUTOMAKE_VER.tar.xz;
+      wget -O - $AUTOMAKE_XZ_URL | tar xf - --xz --directory ~;
+      (cd ~/automake-$AUTOMAKE_VER && ./configure --prefix=$GNUTOOLS_ROOT
+        && make -j && make install);
+    fi
+  - if [[ "$REPORT_COVERAGE" == true ]]; then
+      mkdir -p ../coveralls;
+      wget -O - https://coveralls.io/coveralls-linux.tar.gz
+        | tar xf - --gz --directory ../coveralls;
+      export PATH=`pwd`/../coveralls:$PATH;
+    fi
+  - if [[ "$MAKEFILE_TARGET" == "dist"* ]]; then
+      autoconf --version;
+      automake --version;
+      m4 --version;
+      libtool --version || true;
+    fi
+  - if [[ "$CMAKE_OPTIONS" != "" ]]; then
+      cmake --version;
+    fi
+  - if [[ "$MAKEFILE_TARGET" == "" ]]; then MAKEFILE_TARGET=check; fi
 
 install:
-- if [[ "$CMAKE_OPTIONS" == "" ]]; then
-    ./autogen.sh;
-  fi
+  - if [[ "$CMAKE_OPTIONS" == "" ]]; then
+      ./autogen.sh;
+    fi
 
 script:
-- if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
-    ./configure $CONF_OPTIONS --enable-werror;
-  fi
-- if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
-    cat src/config.h;
-  fi
-- if [[ "$CROSS_GCC_VER" != "" ]]; then CC=$CROSS_CC; fi
-- if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
-    make -j $MAKEFILE_TARGET CC=$CC CFLAGS_EXTRA="$CFLAGS_EXTRA"
-            LDFLAGS="$LDFLAGS";
-  fi
-- if [[ "$CMAKE_OPTIONS" != "" ]]; then
-    cmake $CMAKE_OPTIONS -Denable_werror=ON -Werror=author . &&
-    cmake --build . $CMAKE_BUILD_OPTIONS --parallel;
-  fi
-- if [[ "$CMAKE_OPTIONS" != "" ]]; then
-    ctest --verbose --parallel 4;
-  fi
-- if [[ "$CC_FOR_CHECK" != "" ]]; then
-    make check CC=$CC_FOR_CHECK CFLAGS_EXTRA="$CFLAGS_EXTRA";
-  fi
-- if [ -f tests/test_atomic.log ]; then cat tests/test_atomic*.log; fi
-- if [ -f tests/test_stack.log ]; then cat tests/test_stack.log; fi
-- if [[ "$TESTS_CUSTOM_RUN" == true ]]; then
-    ASAN_OPTIONS="detect_leaks=1" UBSAN_OPTIONS="halt_on_error=1"
-        make -C tests check-without-test-driver;
-  fi
+  - if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
+      ./configure $CONF_OPTIONS --enable-werror;
+    fi
+  - if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
+      cat src/config.h;
+    fi
+  - if [[ "$CROSS_GCC_VER" != "" ]]; then CC=$CROSS_CC; fi
+  - if [[ "$CMAKE_OPTIONS" == "" && "$COVERITY_SCAN_BRANCH" != 1 ]]; then
+      make -j $MAKEFILE_TARGET CC=$CC CFLAGS_EXTRA="$CFLAGS_EXTRA"
+              LDFLAGS="$LDFLAGS";
+    fi
+  - if [[ "$CMAKE_OPTIONS" != "" ]]; then
+      cmake $CMAKE_OPTIONS -Denable_werror=ON -Werror=author . &&
+      cmake --build . $CMAKE_BUILD_OPTIONS --parallel;
+    fi
+  - if [[ "$CMAKE_OPTIONS" != "" ]]; then
+      ctest --verbose --parallel 4;
+    fi
+  - if [[ "$CC_FOR_CHECK" != "" ]]; then
+      make check CC=$CC_FOR_CHECK CFLAGS_EXTRA="$CFLAGS_EXTRA";
+    fi
+  - if [ -f tests/test_atomic.log ]; then cat tests/test_atomic*.log; fi
+  - if [ -f tests/test_stack.log ]; then cat tests/test_stack.log; fi
+  - if [[ "$TESTS_CUSTOM_RUN" == true ]]; then
+      ASAN_OPTIONS="detect_leaks=1" UBSAN_OPTIONS="halt_on_error=1"
+          make -C tests check-without-test-driver;
+    fi
 
 after_success:
-- if [[ "$REPORT_COVERAGE" == true ]]; then
-    lcov --capture --directory src --directory tests --output-file coverage.info &&
-    lcov --remove coverage.info 'tests/*' --output-file coverage.info &&
-    lcov --list coverage.info &&
-    coveralls report coverage.info -r ${COVERALLS_REPO_TOKEN};
-  fi
+  - if [[ "$REPORT_COVERAGE" == true ]]; then
+      lcov --capture --directory src --directory tests
+           --output-file coverage.info &&
+      lcov --remove coverage.info 'tests/*' --output-file coverage.info &&
+      lcov --list coverage.info &&
+      coveralls report coverage.info -r ${COVERALLS_REPO_TOKEN};
+    fi
 
 deploy:
   provider: releases
   edge: true
   file: libatomic_ops-*.tar.gz
   file_glob: true
-  on:
+  "on":
     condition: $MAKEFILE_TARGET = distcheck
     repo: bdwgc/libatomic_ops
     tags: true
