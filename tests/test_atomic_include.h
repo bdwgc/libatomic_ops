@@ -73,7 +73,8 @@ void test_atomic(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double) \
      || defined(AO_HAVE_compare_double_and_swap_double) \
-     || defined(AO_HAVE_double_compare_and_swap)
+     || defined(AO_HAVE_double_compare_and_swap) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -611,6 +612,9 @@ void test_atomic(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -687,7 +691,8 @@ void test_atomic_release(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_release) \
      || defined(AO_HAVE_compare_double_and_swap_double_release) \
-     || defined(AO_HAVE_double_compare_and_swap_release)
+     || defined(AO_HAVE_double_compare_and_swap_release) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_release) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -1225,6 +1230,9 @@ void test_atomic_release(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_release) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_release(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -1301,7 +1309,8 @@ void test_atomic_acquire(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_acquire) \
      || defined(AO_HAVE_compare_double_and_swap_double_acquire) \
-     || defined(AO_HAVE_double_compare_and_swap_acquire)
+     || defined(AO_HAVE_double_compare_and_swap_acquire) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_acquire) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -1839,6 +1848,9 @@ void test_atomic_acquire(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_acquire) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_acquire(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -1915,7 +1927,8 @@ void test_atomic_read(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_read) \
      || defined(AO_HAVE_compare_double_and_swap_double_read) \
-     || defined(AO_HAVE_double_compare_and_swap_read)
+     || defined(AO_HAVE_double_compare_and_swap_read) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_read) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -2453,6 +2466,9 @@ void test_atomic_read(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_read) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_read(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -2529,7 +2545,8 @@ void test_atomic_write(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_write) \
      || defined(AO_HAVE_compare_double_and_swap_double_write) \
-     || defined(AO_HAVE_double_compare_and_swap_write)
+     || defined(AO_HAVE_double_compare_and_swap_write) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_write) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -3067,6 +3084,9 @@ void test_atomic_write(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_write) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_write(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -3143,7 +3163,8 @@ void test_atomic_full(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_full) \
      || defined(AO_HAVE_compare_double_and_swap_double_full) \
-     || defined(AO_HAVE_double_compare_and_swap_full)
+     || defined(AO_HAVE_double_compare_and_swap_full) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_full) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -3681,6 +3702,9 @@ void test_atomic_full(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_full) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_full(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -3757,7 +3781,8 @@ void test_atomic_release_write(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_release_write) \
      || defined(AO_HAVE_compare_double_and_swap_double_release_write) \
-     || defined(AO_HAVE_double_compare_and_swap_release_write)
+     || defined(AO_HAVE_double_compare_and_swap_release_write) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_release_write) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -4295,6 +4320,9 @@ void test_atomic_release_write(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_release_write) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_release_write(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -4371,7 +4399,8 @@ void test_atomic_acquire_read(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_acquire_read) \
      || defined(AO_HAVE_compare_double_and_swap_double_acquire_read) \
-     || defined(AO_HAVE_double_compare_and_swap_acquire_read)
+     || defined(AO_HAVE_double_compare_and_swap_acquire_read) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_acquire_read) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -4909,6 +4938,9 @@ void test_atomic_acquire_read(void)
 # else
     MISSING(AO_double_compare_and_swap);
 # endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_acquire_read) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_acquire_read(&w, w, w);
+# endif
 }
 /*
  * Copyright (c) 2003 by Hewlett-Packard Company.  All rights reserved.
@@ -4985,7 +5017,8 @@ void test_atomic_dd_acquire_read(void)
 # endif
 # if defined(AO_HAVE_compare_and_swap_double_dd_acquire_read) \
      || defined(AO_HAVE_compare_double_and_swap_double_dd_acquire_read) \
-     || defined(AO_HAVE_double_compare_and_swap_dd_acquire_read)
+     || defined(AO_HAVE_double_compare_and_swap_dd_acquire_read) \
+     || defined(AO_HAVE_double_fetch_compare_and_swap_dd_acquire_read) && defined(CPPCHECK)
     static AO_double_t w; /* static to avoid misalignment */
     w.AO_val1 = 0;
     w.AO_val2 = 0;
@@ -5522,5 +5555,8 @@ void test_atomic_dd_acquire_read(void)
     TA_assert(w.AO_val1 == 0 && w.AO_val2 == 0);
 # else
     MISSING(AO_double_compare_and_swap);
+# endif
+# if defined(AO_HAVE_double_fetch_compare_and_swap_dd_acquire_read) && defined(CPPCHECK)
+    (void)AO_double_fetch_compare_and_swap_dd_acquire_read(&w, w, w);
 # endif
 }
